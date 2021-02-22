@@ -7,34 +7,40 @@ class CountdownTimer {
         this.hoursRef = document.querySelector('[data-value="hours"]');
         this.minsRef = document.querySelector('[data-value="mins"]');
         this.secsRef = document.querySelector('[data-value="secs"]');
+        this.time = null;
         this.timer = null;
     }
-
-    // startCountdown() {
-    //     const run = setInterval(() => {
-    //         let time = Date.now() - this.targetDate;
-    //         const days = Math.floor(time / (1000 * 60 * 60 * 24)) * -1;
-    //         const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * -1;
-    //         const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)) * -1;
-    //         const secs = Math.floor((time % (1000 * 60)) / 1000) * -1;
-    //         this.daysRef.textContent = days;
-    //         this.hoursRef.textContent = hours;
-    //         this.minssRef.textContent = mins;
-    //         this.secssRef.textContent = secs;}, 1000);
-    // }
-
-    startCountdown() {
-        const time = Date.now() - this.targetDate;
-        const days = Math.floor(time / (1000 * 60 * 60 * 24)) * -1;
-        const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * -1;
-        const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)) * -1;
-        const secs = Math.floor((time % (1000 * 60)) / 1000) * -1;
+    
+    countdown() {
+        this.time = Date.now() - this.targetDate;
+        const days = Math.floor(this.time / (1000 * 60 * 60 * 24)) * -1;
+        const hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * -1;
+        const mins = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60)) * -1;
+        const secs = Math.floor((this.time % (1000 * 60)) / 1000) * -1;
         this.daysRef.textContent = days;
         this.hoursRef.textContent = hours;
         this.minsRef.textContent = mins;
         this.secsRef.textContent = secs;
-        setTimeout(this.startCountdown.bind(myTimer), 1000);
     }
+
+    startCountdown() {
+        this.countdown();
+        setInterval(this.countdown.bind(this), 1000);
+    }
+    
+    // startCountdown() {
+    //     clearTimeout(this.timer);
+    //     const time = Date.now() - this.targetDate;
+    //     const days = Math.floor(time / (1000 * 60 * 60 * 24)) * -1;
+    //     const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * -1;
+    //     const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)) * -1;
+    //     const secs = Math.floor((time % (1000 * 60)) / 1000) * -1;
+    //     this.daysRef.textContent = days;
+    //     this.hoursRef.textContent = hours;
+    //     this.minsRef.textContent = mins;
+    //     this.secsRef.textContent = secs;
+    //     this.timer = setTimeout(this.startCountdown.bind(myTimer), 1000);
+    // }
 }
 
 
@@ -43,4 +49,4 @@ const options = {
 }
 
 const myTimer = new CountdownTimer(options);
-myTimer.startCountdown(myTimer);
+myTimer.startCountdown();
