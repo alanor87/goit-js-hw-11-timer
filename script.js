@@ -8,19 +8,18 @@ class CountdownTimer {
         this.minsRef = document.querySelector('[data-value="mins"]');
         this.secsRef = document.querySelector('[data-value="secs"]');
         this.time = null;
-        this.timer = null;
     }
     
     countdown() {
-        this.time = Date.now() - this.targetDate;
-        const days = Math.floor(this.time / (1000 * 60 * 60 * 24)) * -1;
-        const hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) * -1;
-        const mins = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60)) * -1;
-        const secs = Math.floor((this.time % (1000 * 60)) / 1000) * -1;
+        this.time = this.targetDate - Date.now();
+        const days = Math.floor(this.time / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((this.time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((this.time % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((this.time % (1000 * 60)) / 1000);
         this.daysRef.textContent = days;
         this.hoursRef.textContent = hours;
         this.minsRef.textContent = mins;
-        this.secsRef.textContent = secs;
+        this.secsRef.textContent = String(secs).padStart(2, '0');
     }
 
     startCountdown() {
